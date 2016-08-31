@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/lukechilds/onionoo-node-client#readme",
   "dependencies": {
-    "request": "^2.74.0",
-    "request-promise": "^4.1.1"
+    "request": "^2.74.0"
   }
 }
