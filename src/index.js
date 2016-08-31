@@ -25,7 +25,8 @@ module.exports = endpoints.reduce((onionoo, endpoint) => {
     const requestOptions = {
       uri:  `${baseUrl}${endpoint}`,
       qs:   args,
-      json: true
+      json: true,
+      gzip: true
     };
     const cacheKey = JSON.stringify(requestOptions);
 
