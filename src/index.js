@@ -20,7 +20,10 @@ module.exports = endpoints.reduce((onionoo, endpoint) => {
       if (!error && response.statusCode == 200) {
         resolve(body);
       } else {
-        reject(error);
+        reject(error || {
+          statusCode: response.statusCode,
+          statusMessage: response.statusMessage
+        });
       }
     })
   });
