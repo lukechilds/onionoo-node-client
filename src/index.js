@@ -1,9 +1,10 @@
-const request   = require('request');
-const NodeCache = require('node-cache');
+const got         = require('got');
+const NodeCache   = require('node-cache');
+const querystring = require('querystring');
 
 const cache = new NodeCache();
 
-const baseUrl   = 'https://onionoo.torproject.org/';
+const baseUrl   = 'https://onionoo.torproject.org';
 const endpoints = [
   'summary',
   'details',
@@ -22,33 +23,30 @@ function checkResponseCache(response) {
 
 module.exports = endpoints.reduce((onionoo, endpoint) => {
   onionoo[endpoint] = args => new Promise((resolve, reject) => {
-    const requestOptions = {
-      uri:  `${baseUrl}${endpoint}`,
-      qs:   args,
-      json: true,
-      gzip: true
-    };
-    const cacheKey = JSON.stringify(requestOptions);
 
-    const cachedResult = cache.get(cacheKey);
+    // Build url
+    const url = `${baseUrl}/${endpoint}?${querystring.encode(args)}`;
+
+    // Check for url in cache
+    const cachedResult = cache.get(url);
     if(cachedResult) {
       resolve(cachedResult);
-    }
+    } else {
 
-    request(requestOptions, (error, response, body) => {
-      if (!error && response.statusCode == 200) {
-        const ttl = checkResponseCache(response);
-        if(ttl) {
-          cache.set(cacheKey, body, ttl);
-        }
-        resolve(body);
-      } else {
-        reject(error || {
-          statusCode: response.statusCode,
-          statusMessage: response.statusMessage
-        });
-      }
-    })
+      // Make request
+      resolve(got(url, { json: true })
+        .then(response => {
+
+          // Cache response
+          const ttl = checkResponseCache(response);
+          if(ttl) {
+            cache.set(url, response.body, ttl);
+          }
+
+          // Resolve response
+          return response.body;
+        }));
+    }
   });
 
   return onionoo;
