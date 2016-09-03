@@ -24,8 +24,11 @@ function checkResponseCache(response) {
 module.exports = endpoints.reduce((onionoo, endpoint) => {
   onionoo[endpoint] = args => new Promise((resolve, reject) => {
 
+    // Build query string (don't encode ':' for search filters)
+    const qs = querystring.encode(args).replace('%3A', ':');
+
     // Build url
-    const url = `${baseUrl}/${endpoint}?${querystring.encode(args)}`;
+    const url = `${baseUrl}/${endpoint}?${qs}`;
 
     // Check for url in cache
     const cachedResult = cache.get(url);
