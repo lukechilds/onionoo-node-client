@@ -1,6 +1,7 @@
 const got         = require('got');
 const NodeCache   = require('node-cache');
 const querystring = require('querystring');
+const pkg         = require('../package.json');
 
 const cache = new NodeCache();
 
@@ -37,7 +38,11 @@ module.exports = endpoints.reduce((onionoo, endpoint) => {
     } else {
 
       // Make request
-      resolve(got(url, { json: true })
+      const options = {
+        json: true,
+        'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
+      };
+      resolve(got(url, options)
         .then(response => {
 
           // Cache response
