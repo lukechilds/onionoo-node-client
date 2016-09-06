@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/lukechilds/onionoo-node-client/issues"
   },
-  "homepage": "https://github.com/lukechilds/onionoo-node-client#readme",
+  "homepage": "https://github.com/lukechilds/onionoo-node-client",
   "dependencies": {
     "got": "^6.3.0",
     "node-cache": "^3.2.1"
