@@ -1,6 +1,6 @@
 {
   "name": "onionoo",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Node client for the Onionoo Tor API",
   "main": "src/index.js",
   "scripts": {
