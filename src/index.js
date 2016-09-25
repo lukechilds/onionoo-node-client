@@ -26,7 +26,7 @@ module.exports = endpoints.reduce((onionoo, endpoint) => {
   onionoo[endpoint] = args => new Promise((resolve, reject) => {
 
     // Build query string (don't encode ':' for search filters)
-    const qs = querystring.encode(args).replace('%3A', ':');
+    const qs = querystring.encode(args).replace(/%3A/g, ':');
 
     // Build url
     const url = `${baseUrl}/${endpoint}?${qs}`;
