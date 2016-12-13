@@ -22,8 +22,8 @@ function checkResponseCache(response) {
   return maxAge && maxAge[1];
 }
 
-module.exports = endpoints.reduce((onionoo, endpoint) => {
-  onionoo[endpoint] = args => new Promise((resolve, reject) => {
+function createEndpointMethod(endpoint) {
+  return args => new Promise((resolve, reject) => {
 
     // Build query string (don't encode ':' for search filters)
     const qs = querystring.encode(args).replace(/%3A/g, ':');
@@ -56,6 +56,10 @@ module.exports = endpoints.reduce((onionoo, endpoint) => {
         }));
     }
   });
+}
+
+module.exports = endpoints.reduce((onionoo, endpoint) => {
+  onionoo[endpoint] = createEndpointMethod(endpoint);
 
   return onionoo;
 }, {});
