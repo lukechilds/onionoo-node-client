@@ -16,7 +16,7 @@ const endpoints = [
 ];
 
 // Returns cache max age from response headers
-function checkResponseCache(response) {
+function checkResponseMaxAge(response) {
   const cacheControl = response.headers['cache-control'];
   const maxAgeRegex = /max-age=(\d+)/;
   const maxAge = cacheControl && cacheControl.match(maxAgeRegex);
@@ -48,7 +48,7 @@ function createEndpointMethod(endpoint) {
         .then(response => {
 
           // Cache response
-          const ttl = checkResponseCache(response);
+          const ttl = checkResponseMaxAge(response);
           if(ttl) {
             cache.set(url, response.body, ttl);
           }
