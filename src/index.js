@@ -15,6 +15,7 @@ const endpoints = [
   'uptime'
 ];
 
+// Returns cache max age from response headers
 function checkResponseCache(response) {
   const cacheControl = response.headers['cache-control'];
   const maxAgeRegex = /max-age=(\d+)/;
@@ -22,6 +23,7 @@ function checkResponseCache(response) {
   return maxAge && maxAge[1];
 }
 
+// Returns a function to make requests to a given endpoint
 function createEndpointMethod(endpoint) {
   return args => new Promise((resolve, reject) => {
 
@@ -58,6 +60,7 @@ function createEndpointMethod(endpoint) {
   });
 }
 
+// Return object containing endpoint methods
 module.exports = endpoints.reduce((onionoo, endpoint) => {
   onionoo[endpoint] = createEndpointMethod(endpoint);
 
