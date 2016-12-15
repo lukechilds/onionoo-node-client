@@ -51,7 +51,7 @@ class Onionoo {
       const url = `${this.options.baseUrl}/${endpoint}?${qs}`;
 
       // Check for url in cache
-      const cachedResult = this.options.cache.get(url);
+      const cachedResult = this.options.cache && this.options.cache.get(url);
       if(cachedResult) {
         resolve(cachedResult);
       } else {
@@ -65,9 +65,11 @@ class Onionoo {
           .then(response => {
 
             // Cache response
-            const ttl = this.checkResponseMaxAge(response);
-            if(ttl) {
-              this.options.cache.set(url, response.body, ttl);
+            if(this.options.cache) {
+              const ttl = this.checkResponseMaxAge(response);
+              if(ttl) {
+                this.options.cache.set(url, response.body, ttl);
+              }
             }
 
             // Resolve response
