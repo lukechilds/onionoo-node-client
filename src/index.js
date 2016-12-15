@@ -10,7 +10,6 @@ class Onionoo {
 
     // Set default options
     this.options = Object.assign({}, {
-      cache:      new NodeCache(),
       baseUrl:    'https://onionoo.torproject.org',
       endpoints:  [
         'summary',
@@ -21,6 +20,9 @@ class Onionoo {
         'uptime'
       ]
     }, options);
+    if(typeof this.options.cache == 'undefined') {
+      this.options.cache = new NodeCache();
+    }
 
     // Return object containing endpoint methods
     return this.options.endpoints.reduce((onionoo, endpoint) => {
