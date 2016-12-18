@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/lukechilds/onionoo-node-client",
   "dependencies": {
-    "got": "^6.3.0",
-    "node-cache": "^3.2.1"
+    "cache-manager": "^2.2.0",
+    "got": "^6.3.0"
   }
 }

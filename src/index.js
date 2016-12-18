@@ -1,7 +1,7 @@
-const got         = require('got');
-const NodeCache   = require('node-cache');
-const querystring = require('querystring');
-const pkg         = require('../package.json');
+const got           = require('got');
+const cacheManager  = require('cache-manager');
+const querystring   = require('querystring');
+const pkg           = require('../package.json');
 
 class Onionoo {
 
@@ -20,8 +20,11 @@ class Onionoo {
         'uptime'
       ]
     }, options);
-    if(typeof this.options.cache == 'undefined') {
-      this.options.cache = new NodeCache();
+    if(options.cache !== false) {
+      this.options.cache = cacheManager.caching(Object.assign({}, {
+        store: 'memory',
+        max: 500
+      }, options.cache));
     }
 
     // Return object containing endpoint methods
@@ -51,32 +54,35 @@ class Onionoo {
       const url = `${this.options.baseUrl}/${endpoint}?${qs}`;
 
       // Check for url in cache
-      const cachedResult = this.options.cache && this.options.cache.get(url);
-      if(cachedResult) {
-        resolve(cachedResult);
+      if(this.options.cache) {
+        this.options.cache.get(url)
+          .then(cachedResult => resolve(cachedResult ? cachedResult : this.makeRequest(url)));
       } else {
-
-        // Make request
-        const options = {
-          json: true,
-          'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
-        };
-        resolve(got(url, options)
-          .then(response => {
-
-            // Cache response
-            if(this.options.cache) {
-              const ttl = this.checkResponseMaxAge(response);
-              if(ttl) {
-                this.options.cache.set(url, response.body, ttl);
-              }
-            }
-
-            // Resolve response
-            return response.body;
-          }));
+        resolve(this.makeRequest(url));
       }
-    });
+    })
+  }
+
+  // Returns a promise for a request
+  makeRequest(url) {
+    const options = {
+      json: true,
+      'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
+    };
+    return got(url, options)
+      .then(response => {
+
+        // Cache response
+        if(this.options.cache) {
+          const ttl = this.checkResponseMaxAge(response);
+          if(ttl) {
+            this.options.cache.set(url, response.body, { ttl });
+          }
+        }
+
+        // Resolve response
+        return response.body;
+      })
   }
 }
 
