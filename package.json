@@ -4,8 +4,9 @@
   "description": "Node client for the Onionoo Tor API",
   "main": "src/index.js",
   "scripts": {
-    "test": "ava",
-    "lint": "snazzy"
+    "test": "nyc ava",
+    "lint": "snazzy",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,8 @@
   },
   "devDependencies": {
     "ava": "^0.17.0",
+    "coveralls": "^2.11.15",
+    "nyc": "^10.0.0",
     "snazzy": "^5.0.0"
   }
 }
