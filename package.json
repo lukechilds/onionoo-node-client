@@ -4,7 +4,8 @@
   "description": "Node client for the Onionoo Tor API",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "snazzy"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
   "dependencies": {
     "cache-manager": "^2.2.0",
     "got": "^6.3.0"
+  },
+  "devDependencies": {
+    "snazzy": "^5.0.0"
   }
 }
