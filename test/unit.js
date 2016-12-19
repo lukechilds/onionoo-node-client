@@ -11,7 +11,9 @@ test('Onionoo cannot be invoked without \'new\'', t => {
 })
 
 test('Onionoo instance is an object', t => {
-  t.is(typeof new Onionoo(), 'object')
+  const onionoo = new Onionoo()
+
+  t.is(typeof onionoo, 'object')
 })
 
 test('Onionoo instance contains expected endpoints', t => {
