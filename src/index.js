@@ -79,16 +79,24 @@ class Onionoo {
     }
     return got(url, options)
       .then(response => {
+        // Format response
+        response = {
+          statusCode: response.statusCode,
+          statusMessage: response.statusMessage,
+          headers: response.headers,
+          body: response.body
+        }
+
         // Cache response
         if (this.options.cache) {
           const ttl = this.calculateResponseMaxAge(response)
           if (ttl) {
-            this.options.cache.set(url, response.body, { ttl })
+            this.options.cache.set(url, response, { ttl })
           }
         }
 
         // Resolve response
-        return response.body
+        return response
       })
   }
 }
