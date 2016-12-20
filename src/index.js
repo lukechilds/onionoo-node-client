@@ -72,7 +72,6 @@ class Onionoo {
   // Returns a promise for a request
   makeRequest (url) {
     const options = {
-      json: true,
       headers: {
         'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
       }
@@ -84,7 +83,7 @@ class Onionoo {
           statusCode: response.statusCode,
           statusMessage: response.statusMessage,
           headers: response.headers,
-          body: response.body
+          body: JSON.parse(response.body)
         }
 
         // Cache response
