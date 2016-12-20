@@ -73,7 +73,9 @@ class Onionoo {
   makeRequest (url) {
     const options = {
       json: true,
-      'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
+      headers: {
+        'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
+      }
     }
     return got(url, options)
       .then(response => {
