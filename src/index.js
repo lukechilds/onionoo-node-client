@@ -87,12 +87,7 @@ class Onionoo {
         }
 
         // Cache response
-        if (this.options.cache) {
-          const ttl = this.calculateResponseMaxAge(response.headers)
-          if (ttl) {
-            this.options.cache.set(url, response, { ttl })
-          }
-        }
+        this.options.cache && this.options.cache.set(url, response)
 
         // Resolve response
         return response
