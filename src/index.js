@@ -35,16 +35,16 @@ class Onionoo {
   }
 
   // Returns cache max age from response headers
-  calculateResponseMaxAge (response) {
+  calculateResponseMaxAge (headers) {
     // Get max age ms
-    const cacheControl = response.headers['cache-control']
+    const cacheControl = headers['cache-control']
     const maxAgeRegex = /max-age=(\d+)/
     let maxAge = cacheControl && cacheControl.match(maxAgeRegex)
     maxAge = maxAge ? maxAge[1] : 0
 
     // Take current age into account
-    if (response.headers.age) {
-      maxAge -= response.headers.age
+    if (headers.age) {
+      maxAge -= headers.age
     }
 
     // Don't return negative values
@@ -89,7 +89,7 @@ class Onionoo {
 
         // Cache response
         if (this.options.cache) {
-          const ttl = this.calculateResponseMaxAge(response)
+          const ttl = this.calculateResponseMaxAge(response.headers)
           if (ttl) {
             this.options.cache.set(url, response, { ttl })
           }
