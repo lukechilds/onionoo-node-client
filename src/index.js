@@ -3,6 +3,8 @@ const cacheManager = require('cache-manager')
 const querystring = require('querystring')
 const pkg = require('../package.json')
 const addSeconds = require('date-fns/add_seconds')
+const isFuture = require('date-fns/is_future')
+const deepAssign = require('deep-assign')
 
 class Onionoo {
 
@@ -56,9 +58,42 @@ class Onionoo {
       // Build url
       const url = `${this.options.baseUrl}/${endpoint}?${qs}`
 
-      // Check for url in cache
+      // If caching is enabled, check for url in cache
       if (this.options.cache) {
-        return this.options.cache.get(url).then(cachedResult => cachedResult || this.makeRequest(url))
+        return this.options.cache.get(url)
+          .then(cachedResult => {
+            // If we have it cached
+            if (cachedResult) {
+              // Return the cached entry if it's still valid
+              if (isFuture(this.expires(cachedResult.headers))) {
+                return cachedResult
+
+              // If it's stale, do a new request with our last-modified date
+              } else {
+                const options = {
+                  headers: {
+                    'if-modified-since': cachedResult.headers['last-modified']
+                  }
+                }
+                return this.makeRequest(url, options)
+                  .then(response => {
+                    // If we get a 304, fill in the body and cache the response
+                    if (response.statusCode === 304) {
+                      response.body = cachedResult.body
+                      this.options.cache.set(url, response)
+                    }
+
+                    // Return response
+                    return response
+                  })
+              }
+            // If it's not in the cache, just make the request
+            } else {
+              return this.makeRequest(url)
+            }
+          })
+
+      // If caching is disabled, just make the request
       } else {
         return this.makeRequest(url)
       }
@@ -66,12 +101,13 @@ class Onionoo {
   }
 
   // Returns a promise for a request
-  makeRequest (url) {
-    const options = {
+  makeRequest (url, options = {}) {
+    options = deepAssign({
       headers: {
         'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
       }
-    }
+    }, options)
+
     return got(url, options)
       .then(response => {
         // Format response
@@ -79,11 +115,13 @@ class Onionoo {
           statusCode: response.statusCode,
           statusMessage: response.statusMessage,
           headers: response.headers,
-          body: JSON.parse(response.body)
+          body: response.body && JSON.parse(response.body)
         }
 
         // Cache response
-        this.options.cache && this.options.cache.set(url, response)
+        if (this.options.cache && response.statusCode === 200) {
+          this.options.cache.set(url, response)
+        }
 
         // Resolve response
         return response
