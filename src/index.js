@@ -53,9 +53,9 @@ class Onionoo {
 
   // Returns a function to make requests to a given endpoint
   createEndpointMethod (endpoint) {
-    return args => {
+    return options => {
       // Build query string (don't encode ':' for search filters)
-      const qs = querystring.encode(args).replace(/%3A/g, ':')
+      const qs = querystring.encode(options).replace(/%3A/g, ':')
 
       // Build url
       const url = `${this.options.baseUrl}/${endpoint}?${qs}`
