@@ -53,7 +53,7 @@ class Onionoo {
 
   // Returns a function to make requests to a given endpoint
   createEndpointMethod (endpoint) {
-    return args => new Promise((resolve, reject) => {
+    return args => {
       // Build query string (don't encode ':' for search filters)
       const qs = querystring.encode(args).replace(/%3A/g, ':')
 
@@ -62,11 +62,11 @@ class Onionoo {
 
       // Check for url in cache
       if (this.options.cache) {
-        this.options.cache.get(url).then(cachedResult => resolve(cachedResult || this.makeRequest(url)))
+        return this.options.cache.get(url).then(cachedResult => cachedResult || this.makeRequest(url))
       } else {
-        resolve(this.makeRequest(url))
+        return this.makeRequest(url)
       }
-    })
+    }
   }
 
   // Returns a promise for a request
