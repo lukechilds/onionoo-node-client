@@ -28,6 +28,7 @@
   "dependencies": {
     "cache-manager": "^2.2.0",
     "date-fns": "^1.21.1",
+    "deep-assign": "^2.0.0",
     "got": "^6.3.0"
   },
   "devDependencies": {
