@@ -62,35 +62,37 @@ class Onionoo {
       if (this.options.cache) {
         return this.options.cache.get(url)
           .then(cachedResult => {
+            let options = {}
+
             // If we have it cached
             if (cachedResult) {
               // Return the cached entry if it's still valid
               if (isFuture(this.expires(cachedResult.headers))) {
                 return cachedResult
 
-              // If it's stale, do a new request with our last-modified date
+              // If it's stale, add last-modified date to headers
               } else {
-                const options = {
-                  headers: {
-                    'if-modified-since': cachedResult.headers['last-modified']
-                  }
+                options.headers = {
+                  'if-modified-since': cachedResult.headers['last-modified']
                 }
-                return this.makeRequest(url, options)
-                  .then(response => {
-                    // If we get a 304, fill in the body and cache the response
-                    if (response.statusCode === 304) {
-                      response.body = cachedResult.body
-                      this.options.cache.set(url, response)
-                    }
-
-                    // Return response
-                    return response
-                  })
               }
-            // If it's not in the cache, just make the request
-            } else {
-              return this.makeRequest(url)
             }
+
+            // Make a request
+            return this.makeRequest(url, options)
+              .then(response => {
+                // If we get a 304, fill in the body
+                if (response.statusCode === 304) {
+                  response.body = cachedResult.body
+                }
+
+                //  If we get a 200 or 304, cache it
+                if ([200, 304].indexOf(response.statusCode) > -1) {
+                  this.options.cache.set(url, response)
+                }
+
+                return response
+              })
           })
 
       // If caching is disabled, just make the request
@@ -126,12 +128,6 @@ class Onionoo {
           body: response.body && JSON.parse(response.body)
         }
 
-        // Cache response
-        if (this.options.cache && response.statusCode === 200) {
-          this.options.cache.set(url, response)
-        }
-
-        // Resolve response
         return response
       })
   }
