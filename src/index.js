@@ -87,7 +87,7 @@ class Onionoo {
                 }
 
                 //  If we get a 200 or 304, cache it
-                if ([200, 304].indexOf(response.statusCode) > -1) {
+                if ([200, 304].includes(response.statusCode)) {
                   this.options.cache.set(url, response)
                 }
 
