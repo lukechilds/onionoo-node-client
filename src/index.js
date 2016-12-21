@@ -109,6 +109,14 @@ class Onionoo {
     }, options)
 
     return got(url, options)
+      .catch(error => {
+        // Don't throw 304 responses
+        if (error.statusCode === 304) {
+          return error.response
+        } else {
+          throw error
+        }
+      })
       .then(response => {
         // Format response
         response = {
