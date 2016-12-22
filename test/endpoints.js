@@ -32,3 +32,17 @@ test('Can pass in custom endpoint array', t => {
 
   t.deepEqual(Object.keys(onionoo), endpoints)
 })
+
+test('Custom endpoint makes correct request', async t => {
+  const customEndpoint = 'foo'
+  const onionoo = new Onionoo({ endpoints: [customEndpoint] })
+
+  const scope = nock(data.defaultBaseUrl)
+    .get(`/${customEndpoint}`)
+    .reply(200, data.dummyResponse)
+
+  const response = await onionoo[customEndpoint]()
+
+  t.deepEqual(response.body, data.dummyResponse)
+  t.truthy(scope.isDone())
+})
