@@ -77,7 +77,7 @@ class Onionoo {
                 return cachedResult
 
               // If it's stale, add last-modified date to headers
-              } else {
+              } else if (cachedResult.headers['last-modified']) {
                 options.headers = {
                   'if-modified-since': cachedResult.headers['last-modified']
                 }
