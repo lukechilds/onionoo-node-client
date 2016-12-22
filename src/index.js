@@ -2,8 +2,7 @@ const got = require('got')
 const cacheManager = require('cache-manager')
 const querystring = require('querystring')
 const pkg = require('../package.json')
-const addSeconds = require('date-fns/add_seconds')
-const isFuture = require('date-fns/is_future')
+const expired = require('expired')
 const deepAssign = require('deep-assign')
 
 class Onionoo {
@@ -37,23 +36,6 @@ class Onionoo {
     }, {})
   }
 
-  // Returns expirey date from response headers
-  expires (headers) {
-    const originDate = new Date(headers.date)
-
-    // Get max age ms
-    let maxAge = headers['cache-control'] && headers['cache-control'].match(/max-age=(\d+)/)
-    maxAge = parseInt(maxAge ? maxAge[1] : 0)
-
-    // Take current age into account
-    if (headers.age) {
-      maxAge -= headers.age
-    }
-
-    // Calculate expirey date
-    return addSeconds(new Date(originDate), maxAge)
-  }
-
   // Returns a function to make requests to a given endpoint
   createEndpointMethod (endpoint) {
     return options => {
@@ -73,7 +55,7 @@ class Onionoo {
             // If we have it cached
             if (cachedResult) {
               // Return the cached entry if it's still valid
-              if (isFuture(this.expires(cachedResult.headers))) {
+              if (!expired(cachedResult.headers)) {
                 return cachedResult
 
               // If it's stale, add last-modified date to headers
