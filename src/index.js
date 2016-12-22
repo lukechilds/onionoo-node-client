@@ -61,7 +61,8 @@ class Onionoo {
       const qs = querystring.encode(options).replace(/%3A/g, ':')
 
       // Build url
-      const url = `${this.options.baseUrl}/${endpoint}?${qs}`
+      let url = `${this.options.baseUrl}/${endpoint}`
+      url += qs ? `?${qs}` : ''
 
       // If caching is enabled, check for url in cache
       if (this.options.cache) {
