@@ -15,3 +15,11 @@ test('Onionoo instance is an object', t => {
 
   t.is(typeof onionoo, 'object')
 })
+
+test('Onionoo instance contains endpoint methods', t => {
+  const onionoo = new Onionoo()
+
+  Object.keys(onionoo).forEach(endpoint => {
+    t.is(typeof onionoo[endpoint], 'function')
+  })
+})
