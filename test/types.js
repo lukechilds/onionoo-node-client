@@ -23,3 +23,11 @@ test('Onionoo instance contains endpoint methods', t => {
     t.is(typeof onionoo[endpoint], 'function')
   })
 })
+
+test('Endpoint methods return promise', t => {
+  const onionoo = new Onionoo()
+
+  Object.keys(onionoo).forEach(endpoint => {
+    t.true(onionoo[endpoint]() instanceof Promise)
+  })
+})
