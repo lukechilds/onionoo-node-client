@@ -45,7 +45,6 @@ onionoo.summary(query).then(response => {
     //   bridges_published:'2016-12-23 07:41:03',
     //   bridges:[]
     // }
-    }
 });
 ```
 
