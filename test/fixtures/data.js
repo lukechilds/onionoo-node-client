@@ -23,5 +23,6 @@ module.exports = {
     ],
     bridges_published: '2016-12-22 04:41:03',
     bridges: []
-  }
+  },
+  dummy400Response: '<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>\n<title>Error 400 Bad Request</title>\n</head>\n<body><h2>HTTP ERROR 400</h2>\n<p>Problem accessing /summary. Reason:\n<pre>    Bad Request</pre></p><hr /><i><small>Powered by Jetty://</small></i><br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n<br/>                                                \n\n</body>\n</html>'
 }
