@@ -10,7 +10,7 @@ class Onionoo {
 	// Constructor returns a new object so instance properties are private
 	constructor(options = {}) {
 		// Set default options
-		this.options = Object.assign({}, {
+		this.options = Object.assign({
 			baseUrl: 'https://onionoo.torproject.org',
 			endpoints: [
 				'summary',
@@ -22,7 +22,7 @@ class Onionoo {
 			]
 		}, options);
 		if (options.cache !== false) {
-			this.options.cache = cacheManager.caching(Object.assign({}, {
+			this.options.cache = cacheManager.caching(Object.assign({
 				store: 'memory',
 				max: 500
 			}, options.cache));
