@@ -1,7 +1,7 @@
 {
   "name": "onionoo",
   "version": "0.5.1",
-  "description": "Node client for the Onionoo Tor API",
+  "description": "Node.js client library for the Tor Onionoo API",
   "main": "src/index.js",
   "scripts": {
     "test": "nyc ava",
