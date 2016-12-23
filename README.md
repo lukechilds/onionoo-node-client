@@ -6,6 +6,12 @@
 
 Client library for the Tor Onionoo API with backend agnostic caching.
 
+## Install
+
+```shell
+npm install --save onionoo
+```
+
 ## License
 
 MIT © Luke Childs
