@@ -30,63 +30,61 @@ class Onionoo {
 
 		// Return object containing endpoint methods
 		return this.options.endpoints.reduce((onionoo, endpoint) => {
-			onionoo[endpoint] = this.createEndpointMethod(endpoint);
+			onionoo[endpoint] = options => this.get(endpoint, options);
 
 			return onionoo;
 		}, {});
 	}
 
 	// Returns a function to make requests to a given endpoint
-	createEndpointMethod(endpoint) {
-		return options => {
-			// Build query string (don't encode ':' for search filters)
-			const qs = querystring.encode(options).replace(/%3A/g, ':');
+	get(endpoint, options) {
+		// Build query string (don't encode ':' for search filters)
+		const qs = querystring.encode(options).replace(/%3A/g, ':');
 
-			// Build url
-			let url = `${this.options.baseUrl}/${endpoint}`;
-			url += qs ? `?${qs}` : '';
+		// Build url
+		let url = `${this.options.baseUrl}/${endpoint}`;
+		url += qs ? `?${qs}` : '';
 
-			// If caching is disabled, just make the request
-			if (!this.options.cache) {
-				return this.makeRequest(url);
-			}
+		// If caching is disabled, just make the request
+		if (!this.options.cache) {
+			return this.makeRequest(url);
+		}
 
-			// If caching is enabled, check for url in cache
-			return this.options.cache.get(url)
-				.then(cachedResult => {
-					let options = {};
+		// If caching is enabled, check for url in cache
+		return this.options.cache.get(url)
+			.then(cachedResult => {
+				let options = {};
 
-					// If we have it cached
-					if (cachedResult) {
-						// Return the cached entry if it's still valid
-						if (!expired(cachedResult.headers)) {
-							return cachedResult;
+				// If we have it cached
+				if (cachedResult) {
+					// Return the cached entry if it's still valid
+					if (!expired(cachedResult.headers)) {
+						return cachedResult;
 
-							// If it's stale, add last-modified date to headers
-						} else if (cachedResult.headers['last-modified']) {
-							options.headers = {
-								'if-modified-since': cachedResult.headers['last-modified']
-							};
-						}
+						// If it's stale, add last-modified date to headers
+					} else if (cachedResult.headers['last-modified']) {
+						options.headers = {
+							'if-modified-since': cachedResult.headers['last-modified']
+						};
 					}
+				}
 
-					// Make a request
-					return this.makeRequest(url, options)
-						.then(response => {
-							// If we get a 304, fill in the body
-							if (response.statusCode === 304) {
-								response.body = cachedResult.body;
-							}
+				// Make a request
+				return this.makeRequest(url, options)
+					.then(response => {
+						// If we get a 304, fill in the body
+						if (response.statusCode === 304) {
+							response.body = cachedResult.body;
+						}
 
-							//  If we get a 200 or 304, cache it
-							if ([200, 304].includes(response.statusCode)) {
-								this.options.cache.set(url, response);
-							}
+						//  If we get a 200 or 304, cache it
+						if ([200, 304].includes(response.statusCode)) {
+							this.options.cache.set(url, response);
+						}
 
-							return response;
-						});
-				});
-		};
+						return response;
+					});
+			});
 	}
 
 	// Returns a promise for a request
