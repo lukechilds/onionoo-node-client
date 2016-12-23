@@ -26,10 +26,10 @@
   },
   "homepage": "https://github.com/lukechilds/onionoo-node-client",
   "dependencies": {
-    "cache-manager": "^2.2.0",
-    "deep-assign": "^2.0.0",
-    "expired": "^1.0.0",
-    "got": "^6.3.0"
+    "cache-manager": "2.2.0",
+    "deep-assign": "2.0.0",
+    "expired": "1.0.0",
+    "got": "6.3.0"
   },
   "devDependencies": {
     "ava": "^0.17.0",
