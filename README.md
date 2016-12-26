@@ -69,6 +69,31 @@ const onionoo = new Onionoo({
 });
 ```
 
+## Cache Stores
+
+This module makes use of [`node-cache-manager`](https://github.com/BryanDonovan/node-cache-manager) to support multiple cache stores. By default we store cached responses in memory. You can easily disable the cache or use a more scalable cache store such as Redis by using `node-cache-manager`'s [store engine](https://github.com/BryanDonovan/node-cache-manager#store-engines) modules.
+
+Disable cache:
+
+```js
+const Onionoo = require('onionoo');
+const onionoo = new Onionoo({
+  cache: false
+});
+```
+
+Use persistent Redis cache:
+
+```js
+const Onionoo = require('onionoo');
+const redisStore = require('cache-manager-redis');
+const onionoo = new Onionoo({
+  cache: {
+    store: redisStore
+  }
+});
+```
+
 ## License
 
 MIT © Luke Childs
