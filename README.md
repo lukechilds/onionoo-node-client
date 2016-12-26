@@ -94,6 +94,51 @@ const onionoo = new Onionoo({
 });
 ```
 
+## API
+
+### new Onionoo([options])
+
+Returns a new `Onionoo` instance
+
+#### options
+
+Type: `object`
+
+##### options.baseUrl
+
+Type: `string`<br>
+Default: `'https://onionoo.torproject.org'`
+
+String to use as the base url for all API requests.
+
+##### options.endpoints
+
+Type: `array`<br>
+Default: `['summary', 'details', 'bandwidth', 'weights', 'clients', 'uptime']`
+
+Array of endpoints to be returned as methods on the `Onionoo` instance.
+
+##### options.cache
+
+Type: `object`, `boolean`<br>
+Default: `{ store: 'memory', max: 500 }`
+
+Options object to be merged with default options and passed to [`node-cache-manager`](https://github.com/BryanDonovan/node-cache-manager). Alternatively, if set to false, caching will be disabled.
+
+### onionoo.endpoint([query])
+
+*Where endpoint is an item from the endpoints array*
+
+Returns a Promise that will resolve once the Onionoo API has responded. The response object contains `statusCode`, `statusMessage`, `headers` and `body` properties.
+
+#### query
+
+Type: `object`
+
+Query object to be url encoded and appended to the `baseUrl`. You can read up on the vast amount of accepted parameters in the [Onionoo API docs](https://onionoo.torproject.org/protocol.html#methods).
+
+> Note: Semicolons are not url encoded to allow for Onionoo's `key:value` search filters.
+
 ## License
 
 MIT © Luke Childs
