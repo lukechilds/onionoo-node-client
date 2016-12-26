@@ -72,7 +72,7 @@ const onionoo = new Onionoo({
 
 ## Cache Stores
 
-This module makes use of [`node-cache-manager`](https://github.com/BryanDonovan/node-cache-manager) to support multiple cache stores. By default we store cached responses in memory. You can easily disable the cache or use a more scalable cache store such as Redis by using `node-cache-manager`'s [store engine](https://github.com/BryanDonovan/node-cache-manager#store-engines) modules.
+This module makes use of [`node-cache-manager`](https://github.com/BryanDonovan/node-cache-manager) to support multiple cache stores. By default cached responses are stored in memory. You can easily disable the cache or use a more scalable cache store such as Redis by using `node-cache-manager`'s [store engine](https://github.com/BryanDonovan/node-cache-manager#store-engines) modules.
 
 Disable cache:
 
