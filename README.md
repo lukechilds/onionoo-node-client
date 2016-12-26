@@ -48,6 +48,27 @@ onionoo.summary(query).then(response => {
 });
 ```
 
+You can override the default options when instantiating a new `Onionoo` instance:
+
+```js
+const Onionoo = require('onionoo');
+const onionoo = new Onionoo({
+  baseUrl: 'https://onionoo.torproject.org',
+  endpoints: [
+    'summary',
+    'details',
+    'bandwidth',
+    'weights',
+    'clients',
+    'uptime'
+  ],
+  cache: {
+    store: 'memory',
+    max: 500
+  }
+});
+```
+
 ## License
 
 MIT © Luke Childs
