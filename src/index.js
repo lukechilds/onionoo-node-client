@@ -24,6 +24,7 @@ class Onionoo {
 		if (options.cache !== false) {
 			this.options.cache = cacheManager.caching(Object.assign({
 				store: 'memory',
+				ttl: 18000, // 5 hours
 				max: 500
 			}, options.cache));
 		}
