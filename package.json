@@ -29,7 +29,7 @@
     "cache-manager": "2.2.0",
     "deep-assign": "2.0.0",
     "expired": "1.1.1",
-    "got": "6.3.0"
+    "got": "6.7.0"
   },
   "devDependencies": {
     "ava": "^0.17.0",
