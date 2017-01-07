@@ -28,7 +28,7 @@
   "dependencies": {
     "cache-manager": "2.2.0",
     "deep-assign": "2.0.0",
-    "expired": "1.1.1",
+    "expired": "1.2.0",
     "got": "6.7.1"
   },
   "devDependencies": {
