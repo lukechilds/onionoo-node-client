@@ -138,7 +138,7 @@ Type: `object`
 
 Query object to be url encoded and appended to the `baseUrl`. You can read up on the vast amount of accepted parameters in the [Onionoo API docs](https://onionoo.torproject.org/protocol.html#methods).
 
-> Note: Semicolons are not url encoded to allow for Onionoo's `key:value` search filters.
+> Note: Colons are not url encoded to allow for Onionoo's `key:value` search filters.
 
 ## License
 
