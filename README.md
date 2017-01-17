@@ -2,7 +2,9 @@
 
 > Node.js client library for the Tor Onionoo API
 
-[![Build Status](https://travis-ci.org/lukechilds/onionoo-node-client.svg?branch=master)](https://travis-ci.org/lukechilds/onionoo-node-client) [![Coverage Status](https://coveralls.io/repos/github/lukechilds/onionoo-node-client/badge.svg?branch=master)](https://coveralls.io/github/lukechilds/onionoo-node-client?branch=master)
+[![Build Status](https://travis-ci.org/lukechilds/onionoo-node-client.svg?branch=master)](https://travis-ci.org/lukechilds/onionoo-node-client)
+[![Coverage Status](https://coveralls.io/repos/github/lukechilds/onionoo-node-client/badge.svg?branch=master)](https://coveralls.io/github/lukechilds/onionoo-node-client?branch=master)
+[![npm](https://img.shields.io/npm/v/onionoo.svg)](https://www.npmjs.com/package/onionoo)
 
 Promise based client library for the Tor Onionoo API. Includes DB agnostic caching.
 
