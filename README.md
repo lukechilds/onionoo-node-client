@@ -142,6 +142,10 @@ Query object to be url encoded and appended to the `baseUrl`. You can read up on
 
 > Note: Colons are not url encoded to allow for Onionoo's `key:value` search filters.
 
+## Related
+
+- [`Onionite`](https://github.com/lukechilds/onionite) - Explore the Tor network
+
 ## License
 
 MIT © Luke Childs
