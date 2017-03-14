@@ -37,7 +37,7 @@ class Onionoo {
 		}, {});
 	}
 
-	// Returns a function to make requests to a given endpoint
+	// Make requests to a given endpoint
 	get(endpoint, options) {
 		// Build query string (don't encode ':' for search filters)
 		const qs = querystring.encode(options).replace(/%3A/g, ':');
