@@ -54,7 +54,7 @@ class Onionoo {
 		// If caching is enabled, check for url in cache
 		return this.options.cache.get(url)
 			.then(cachedResult => {
-				let options = {};
+				const options = {};
 
 				// If we have it cached
 				if (cachedResult) {
