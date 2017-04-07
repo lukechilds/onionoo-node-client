@@ -31,7 +31,7 @@ test('Throw useful errors for HTTP response codes', async t => {
 		503: 'Service Unavailable'
 	};
 
-	Object.keys(responseCodes).forEach(async responseCode => {
+	const requests = Object.keys(responseCodes).map(async responseCode => {
 		const scope = nock(data.defaultBaseUrl)
       .get(`/${defaultEndpoint}`)
       .reply(responseCode);
@@ -45,4 +45,6 @@ test('Throw useful errors for HTTP response codes', async t => {
 		}
 		t.truthy(scope.isDone());
 	});
+
+	await Promise.all(requests);
 });
