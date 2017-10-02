@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "coveralls": "^2.11.15",
+    "coveralls": "^3.0.0",
     "date-fns": "^1.21.1",
     "delay": "^2.0.0",
     "nock": "^9.0.2",
