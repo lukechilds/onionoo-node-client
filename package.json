@@ -32,7 +32,7 @@
     "got": "6.7.1"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "coveralls": "^3.0.0",
     "date-fns": "^1.21.1",
     "delay": "^2.0.0",
