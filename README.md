@@ -120,10 +120,10 @@ Array of endpoints to be returned as methods on the `Onionoo` instance.
 
 ##### options.cache
 
-Type: `object`, `boolean`<br>
-Default: `{ store: 'memory', ttl: 18000, max: 500 }`
+Type: `object`<br>
+Default: `false`
 
-Options object to be merged with default options and passed to [`node-cache-manager`](https://github.com/BryanDonovan/node-cache-manager). Alternatively, if set to false, caching will be disabled.
+[Keyv](https://github.com/lukechilds/keyv) storage adapter instance for storing cached data.
 
 ### onionoo.endpoint([query])
 
