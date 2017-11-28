@@ -64,24 +64,20 @@ const onionoo = new Onionoo({
     'clients',
     'uptime'
   ],
-  cache: {
-    store: 'memory',
-    ttl: 18000,
-    max: 500
-  }
+  cache: false
 });
 ```
 
-## Cache Stores
+## Cache
 
-This module makes use of [`node-cache-manager`](https://github.com/BryanDonovan/node-cache-manager) to support multiple cache stores. By default cached responses are stored in memory. You can easily disable the cache or use a more scalable cache store such as Redis by using `node-cache-manager`'s [store engine](https://github.com/BryanDonovan/node-cache-manager#store-engines) modules.
+By default no cache is used. You can easily cache in memory or to a more scaleable store like Redis using [Keyv storage adapters](https://github.com/lukechilds/keyv#official-storage-adapters).
 
-Disable cache:
+Cache in memory:
 
 ```js
 const Onionoo = require('onionoo');
 const onionoo = new Onionoo({
-  cache: false
+  cache: new Map()
 });
 ```
 
@@ -89,11 +85,12 @@ Use persistent Redis cache:
 
 ```js
 const Onionoo = require('onionoo');
-const redisStore = require('cache-manager-redis');
+const KeyvRedis = require('@keyv/redis');
+
+const redis = new KeyvRedis('redis://user:pass@localhost:6379');
+
 const onionoo = new Onionoo({
-  cache: {
-    store: redisStore
-  }
+  cache: redis
 });
 ```
 
