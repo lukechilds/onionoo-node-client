@@ -41,7 +41,8 @@ class Onionoo {
 			headers: {
 				'user-agent': `onionoo-node-client v${pkg.version} (${pkg.homepage})`
 			},
-			json: true
+			json: true,
+			cache: this.options.cache
 		});
 	}
 }
