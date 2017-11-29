@@ -28,14 +28,14 @@ test('Can pass in custom endpoint array', t => {
 		'foo',
 		'bar'
 	];
-	const onionoo = new Onionoo({endpoints});
+	const onionoo = new Onionoo({ endpoints });
 
 	t.deepEqual(Object.keys(onionoo), endpoints);
 });
 
 test('Custom endpoint makes correct request', async t => {
 	const customEndpoint = 'foo';
-	const onionoo = new Onionoo({endpoints: [customEndpoint]});
+	const onionoo = new Onionoo({ endpoints: [customEndpoint] });
 
 	const scope = nock(data.defaultBaseUrl)
     .get(`/${customEndpoint}`)

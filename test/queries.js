@@ -11,7 +11,7 @@ test('Query string is built correctly', async t => {
     .get(`/${defaultEndpoint}?foo=bar`)
     .reply(200, data.dummyResponse);
 
-	const response = await onionoo[defaultEndpoint]({foo: 'bar'});
+	const response = await onionoo[defaultEndpoint]({ foo: 'bar' });
 
 	t.deepEqual(response.body, data.dummyResponse);
 	t.true(scope.isDone());
@@ -25,7 +25,7 @@ test('":" char isn\'t url encoded so filters work', async t => {
     .get(`/${defaultEndpoint}?foo=key:value`)
     .reply(200, data.dummyResponse);
 
-	const response = await onionoo[defaultEndpoint]({foo: 'key:value'});
+	const response = await onionoo[defaultEndpoint]({ foo: 'key:value' });
 
 	t.deepEqual(response.body, data.dummyResponse);
 	t.true(scope.isDone());

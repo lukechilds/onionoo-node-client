@@ -6,7 +6,7 @@ import data from './fixtures/data';
 test('Can pass in custom endpoint', async t => {
 	const baseUrl = 'http://foo.com';
 	const defaultEndpoint = data.defaultEndpoints[0];
-	const onionoo = new Onionoo({baseUrl});
+	const onionoo = new Onionoo({ baseUrl });
 
 	const scope = nock(baseUrl)
     .get(`/${defaultEndpoint}`)

@@ -33,7 +33,7 @@ test('Cache is disabled by default', async t => {
 });
 
 test('Cache options is passed through to Got', async t => {
-	const onionoo = new Onionoo({cache: new Map()});
+	const onionoo = new Onionoo({ cache: new Map() });
 
 	const defaultEndpoint = data.defaultEndpoints[0];
 	const responseHeaders = {
