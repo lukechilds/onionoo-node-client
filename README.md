@@ -76,9 +76,9 @@ Cache in memory:
 
 ```js
 const Onionoo = require('onionoo');
-const onionoo = new Onionoo({
-  cache: new Map()
-});
+
+const memory = new Map();
+const onionoo = new Onionoo({ cache: memory });
 ```
 
 Use persistent Redis cache:
@@ -88,10 +88,7 @@ const Onionoo = require('onionoo');
 const KeyvRedis = require('@keyv/redis');
 
 const redis = new KeyvRedis('redis://user:pass@localhost:6379');
-
-const onionoo = new Onionoo({
-  cache: redis
-});
+const onionoo = new Onionoo({ cache: redis });
 ```
 
 ## API
