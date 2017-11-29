@@ -17,7 +17,7 @@ test('Handle HTML responses for errors', async t => {
 		t.deepEqual(err.response.body, data.dummy400Response);
 	}
 
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 });
 
 test('Throw useful errors for HTTP response codes', async t => {
@@ -43,7 +43,7 @@ test('Throw useful errors for HTTP response codes', async t => {
 			t.is(err.statusCode, parseInt(responseCode, 10));
 			t.is(err.statusMessage, responseCodes[responseCode]);
 		}
-		t.truthy(scope.isDone());
+		t.true(scope.isDone());
 	});
 
 	await Promise.all(requests);

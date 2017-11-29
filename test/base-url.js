@@ -15,5 +15,5 @@ test('Can pass in custom endpoint', async t => {
 	const response = await onionoo[defaultEndpoint]();
 
 	t.deepEqual(response.body, data.dummyResponse);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 });

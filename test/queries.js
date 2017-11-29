@@ -14,7 +14,7 @@ test('Query string is built correctly', async t => {
 	const response = await onionoo[defaultEndpoint]({foo: 'bar'});
 
 	t.deepEqual(response.body, data.dummyResponse);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 });
 
 test('":" char isn\'t url encoded so filters work', async t => {
@@ -28,5 +28,5 @@ test('":" char isn\'t url encoded so filters work', async t => {
 	const response = await onionoo[defaultEndpoint]({foo: 'key:value'});
 
 	t.deepEqual(response.body, data.dummyResponse);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 });

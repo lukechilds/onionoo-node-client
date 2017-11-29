@@ -20,7 +20,7 @@ test('Cache is disabled by default', async t => {
 	const response = await onionoo[defaultEndpoint]();
 
 	t.false(response.fromCache);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 
 	const scope2 = nock(data.defaultBaseUrl)
     .get(`/${defaultEndpoint}`)
@@ -29,7 +29,7 @@ test('Cache is disabled by default', async t => {
 	const response2 = await onionoo[defaultEndpoint]();
 
 	t.false(response2.fromCache);
-	t.truthy(scope2.isDone());
+	t.true(scope2.isDone());
 });
 
 test('Cache options is passed through to Got', async t => {
@@ -49,7 +49,7 @@ test('Cache options is passed through to Got', async t => {
 	const response = await onionoo[defaultEndpoint]();
 
 	t.false(response.fromCache);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 
 	const response2 = await onionoo[defaultEndpoint]();
 

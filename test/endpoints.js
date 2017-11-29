@@ -20,7 +20,7 @@ test('Default endpoint makes correct request', async t => {
 	const response = await onionoo[defaultEndpoint]();
 
 	t.deepEqual(response.body, data.dummyResponse);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 });
 
 test('Can pass in custom endpoint array', t => {
@@ -44,5 +44,5 @@ test('Custom endpoint makes correct request', async t => {
 	const response = await onionoo[customEndpoint]();
 
 	t.deepEqual(response.body, data.dummyResponse);
-	t.truthy(scope.isDone());
+	t.true(scope.isDone());
 });
