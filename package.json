@@ -4,8 +4,7 @@
   "description": "Node.js client library for the Tor Onionoo API",
   "main": "src/index.js",
   "scripts": {
-    "test": "nyc ava",
-    "lint": "xo",
+    "test": "xo && nyc ava",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "xo": {
