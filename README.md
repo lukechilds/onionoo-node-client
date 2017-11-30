@@ -70,7 +70,7 @@ const onionoo = new Onionoo({
 
 ## Cache
 
-By default no cache is used. You can easily cache in memory or to a more scaleable store like Redis using [Keyv storage adapters](https://github.com/lukechilds/keyv#official-storage-adapters).
+By default no cache is used. You can easily cache in memory or to a more scalable store like Redis using [Keyv storage adapters](https://github.com/lukechilds/keyv#official-storage-adapters).
 
 Cache in memory:
 
