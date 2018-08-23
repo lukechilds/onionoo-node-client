@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/lukechilds/onionoo-node-client",
   "dependencies": {
-    "got": "8.0.3"
+    "got": "9.1.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
