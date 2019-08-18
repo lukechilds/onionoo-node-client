@@ -31,7 +31,7 @@
     "got": "8.0.3"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^2.3.0",
     "coveralls": "^3.0.0",
     "eslint-config-xo-lukechilds": "^1.0.1",
     "nock": "^9.0.2",
